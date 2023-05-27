@@ -21,48 +21,48 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDTO createAuthor(AuthorDTO authorDto) {
-        Author author = dtoToAuthor(authorDto);
-        Author savedAuthor = authorRepo.save(author);
-        return authorToDto(savedAuthor);
+        Author author = this.dtoToAuthor(authorDto);
+        Author savedAuthor = this.authorRepo.save(author);
+        return this.authorToDto(savedAuthor);
     }
 
     @Override
     public AuthorDTO updateAuthor(AuthorDTO authorDto, Long authorId) {
-        Author foundedAuthor = authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
+        Author foundedAuthor = this.authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
         foundedAuthor.setName(authorDto.getName());
         foundedAuthor.setEmail(authorDto.getEmail());
         foundedAuthor.setBiography(authorDto.getBiography());
 
-        Author updatedAuthor = authorRepo.save(foundedAuthor);
-        return authorToDto(updatedAuthor);
+        Author updatedAuthor = this.authorRepo.save(foundedAuthor);
+        return this.authorToDto(updatedAuthor);
     }
 
     @Override
     public AuthorDTO getAuthorById(Long authorId) {
-        Author foundedAuthor = authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
-        return authorToDto(foundedAuthor);
+        Author foundedAuthor = this.authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
+        return this.authorToDto(foundedAuthor);
     }
 
     @Override
     public List<AuthorDTO> getAllAuthors() {
-        List<Author> authors = authorRepo.findAll();
-        List<AuthorDTO> authorDTOS = authors.stream().map(author -> authorToDto(author)).collect(Collectors.toList());
+        List<Author> authors = this.authorRepo.findAll();
+        List<AuthorDTO> authorDTOS = authors.stream().map(author -> this.authorToDto(author)).collect(Collectors.toList());
         return authorDTOS;
     }
 
     @Override
     public void deleteAuthor(Long authorId) {
-       Author foundedAuthor = authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
-       authorRepo.delete(foundedAuthor);
+       Author foundedAuthor = this.authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
+        this.authorRepo.delete(foundedAuthor);
     }
 
     public Author dtoToAuthor(AuthorDTO authorDTO) {
-        Author author = modelMapper.map(authorDTO, Author.class);
+        Author author = this.modelMapper.map(authorDTO, Author.class);
         return author;
     }
 
     public AuthorDTO authorToDto(Author author) {
-        AuthorDTO authorDTO = modelMapper.map(author, AuthorDTO.class);
+        AuthorDTO authorDTO = this.modelMapper.map(author, AuthorDTO.class);
         return authorDTO;
     }
 }
