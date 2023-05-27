@@ -1,4 +1,6 @@
 package com.book.store.management.services;
+import com.book.store.management.entity.Author;
+import com.book.store.management.entity.Book;
 import com.book.store.management.payloads.BookDTO;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +18,8 @@ public interface BookService {
     List<BookDTO> getAllBooks();
 
     void deleteBook(Long bookId);
+
+    List<Book> getBooksByAuthor(Long authorId);
+
+    List<Book> searchBooks(String keyword);
 }

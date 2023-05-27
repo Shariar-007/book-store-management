@@ -15,7 +15,7 @@ public interface AuthorService {
 
     AuthorDTO getAuthorById(Long authorId);
 
-    List<AuthorDTO> getAllAuthors();
+    List<AuthorDTO> getAllAuthors(Integer pageNumber, Integer pageSize, String sortBy, String sortType);
 
     void deleteAuthor(Long authorId);
 }

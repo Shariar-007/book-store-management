@@ -7,6 +7,10 @@ import com.book.store.management.repositories.AuthorRepo;
 import com.book.store.management.services.AuthorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,8 +48,18 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorDTO> getAllAuthors() {
-        List<Author> authors = this.authorRepo.findAll();
+    public List<AuthorDTO> getAllAuthors(Integer pageNumber, Integer pageSize, String sortBy, String sortType) {
+        Sort sort = null;
+        if(sortType.equalsIgnoreCase("asc")){
+            sort = Sort.by(sortBy).ascending();
+        } else if (sortType.equalsIgnoreCase("desc")) {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        Page<Author> pagedAuthor = this.authorRepo.findAll(pageable);
+
+        List<Author> authors = pagedAuthor.getContent();
         List<AuthorDTO> authorDTOS = authors.stream().map(author -> this.authorToDto(author)).collect(Collectors.toList());
         return authorDTOS;
     }

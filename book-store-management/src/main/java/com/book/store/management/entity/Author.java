@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="authors")
 @NoArgsConstructor
@@ -23,4 +26,7 @@ public class Author {
     @Column(name = "biography", length = 500)
     private String biography;
 
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 }

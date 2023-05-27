@@ -1,5 +1,6 @@
 package com.book.store.management.controllers;
 
+import com.book.store.management.config.AppConstants;
 import com.book.store.management.payloads.ApiResponse;
 import com.book.store.management.payloads.AuthorDTO;
 import com.book.store.management.services.AuthorService;
@@ -20,8 +21,13 @@ public class authorController {
 
 
     @GetMapping
-    public ResponseEntity<List<AuthorDTO>> getAllUser() {
-        return ResponseEntity.ok(this.authorService.getAllAuthors());
+    public ResponseEntity<List<AuthorDTO>> getAllUser(
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortType", defaultValue = AppConstants.SORT_DIR, required = false) String sortType
+    ) {
+        return ResponseEntity.ok(this.authorService.getAllAuthors(pageNumber, pageSize, sortBy, sortType));
     }
 
     @GetMapping("/{authorId}")

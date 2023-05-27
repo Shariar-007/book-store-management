@@ -13,9 +13,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepo bookRepo;
-
     @Autowired
     private ModelMapper modelMapper;
+
     @Override
     public BookDTO createBook(BookDTO book) {
 
@@ -41,6 +41,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long bookId) {
 
+    }
+
+    @Override
+    public List<Book> getBooksByAuthor(Long authorId) {
+        return null;
+    }
+
+    @Override
+    public List<Book> searchBooks(String keyword) {
+        return null;
     }
 
     public Book dtoToBook(BookDTO bookDTO) {
