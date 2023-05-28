@@ -1,6 +1,5 @@
 package com.book.store.management.payloads;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AuthorDTO {
+public class AuthorDAO {
     private Long id;
 
     @NotNull

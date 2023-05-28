@@ -1,25 +1,23 @@
 package com.book.store.management.services;
-import com.book.store.management.entity.Author;
 import com.book.store.management.entity.Book;
-import com.book.store.management.payloads.BookDTO;
+import com.book.store.management.payloads.BookDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface BookService {
 
-    BookDTO createBook(BookDTO book);
+    BookDAO createBook(BookDAO book);
 
-    BookDTO updateBook(BookDTO book, Long bookId);
+    BookDAO updateBook(BookDAO book, Long bookId);
 
-    BookDTO getBookById(Long bookId);
+    BookDAO getBookById(Long bookId);
 
-    List<BookDTO> getAllBooks();
+    List<BookDAO> getAllBooks(Integer pageNumber, Integer pageSize, String sortBy, String sortType);
 
     void deleteBook(Long bookId);
 
-    List<Book> getBooksByAuthor(Long authorId);
+    List<BookDAO> getBooksByAuthor(Long authorId);
 
-    List<Book> searchBooks(String keyword);
+    List<BookDAO> searchBooks(String keyword);
 }

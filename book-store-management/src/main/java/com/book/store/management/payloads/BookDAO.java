@@ -1,9 +1,5 @@
 package com.book.store.management.payloads;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookDTO {
+public class BookDAO {
 
     private Long id;
 
@@ -31,5 +27,7 @@ public class BookDTO {
     @NotNull
     private Date yearOfPublication;
 
-    private List<AuthorDTO> authors = new ArrayList<>();
+    @NotEmpty
+    @NotNull
+    private List<Long> authors = new ArrayList<>();
 }

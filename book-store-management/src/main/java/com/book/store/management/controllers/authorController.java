@@ -2,7 +2,7 @@ package com.book.store.management.controllers;
 
 import com.book.store.management.config.AppConstants;
 import com.book.store.management.payloads.ApiResponse;
-import com.book.store.management.payloads.AuthorDTO;
+import com.book.store.management.payloads.AuthorDAO;
 import com.book.store.management.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class authorController {
 
 
     @GetMapping
-    public ResponseEntity<List<AuthorDTO>> getAllUser(
+    public ResponseEntity<List<AuthorDAO>> getAllUser(
             @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
             @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
@@ -31,20 +31,20 @@ public class authorController {
     }
 
     @GetMapping("/{authorId}")
-    public ResponseEntity<AuthorDTO> getAuthorById(@PathVariable Long authorId) {
-        AuthorDTO foundedAuthor = this.authorService.getAuthorById(authorId);
+    public ResponseEntity<AuthorDAO> getAuthorById(@PathVariable Long authorId) {
+        AuthorDAO foundedAuthor = this.authorService.getAuthorById(authorId);
         return new ResponseEntity<>(foundedAuthor, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) {
-        AuthorDTO createdAuthor = this.authorService.createAuthor(authorDTO);
+    public ResponseEntity<AuthorDAO> createAuthor(@Valid @RequestBody AuthorDAO authorDTO) {
+        AuthorDAO createdAuthor = this.authorService.createAuthor(authorDTO);
         return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
     }
 
     @PutMapping("/{authorId}")
-    public ResponseEntity<AuthorDTO> updateAuthor(@Valid @RequestBody AuthorDTO authorDto, @PathVariable("authorId") Long authorId) {
-        AuthorDTO updatedAuthor = this.authorService.updateAuthor(authorDto, authorId);
+    public ResponseEntity<AuthorDAO> updateAuthor(@Valid @RequestBody AuthorDAO authorDto, @PathVariable("authorId") Long authorId) {
+        AuthorDAO updatedAuthor = this.authorService.updateAuthor(authorDto, authorId);
         return new ResponseEntity<>(updatedAuthor, HttpStatus.OK);
     }
 

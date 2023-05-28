@@ -2,7 +2,7 @@ package com.book.store.management.services.impl;
 
 import com.book.store.management.entity.Author;
 import com.book.store.management.exceptions.ResourceNotFoundException;
-import com.book.store.management.payloads.AuthorDTO;
+import com.book.store.management.payloads.AuthorDAO;
 import com.book.store.management.repositories.AuthorRepo;
 import com.book.store.management.services.AuthorService;
 import org.modelmapper.ModelMapper;
@@ -11,10 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
@@ -24,31 +26,31 @@ public class AuthorServiceImpl implements AuthorService {
     private ModelMapper modelMapper;
 
     @Override
-    public AuthorDTO createAuthor(AuthorDTO authorDto) {
-        Author author = this.dtoToAuthor(authorDto);
+    public AuthorDAO createAuthor(AuthorDAO authorDao) {
+        Author author = this.dtoToAuthor(authorDao);
         Author savedAuthor = this.authorRepo.save(author);
         return this.authorToDto(savedAuthor);
     }
 
     @Override
-    public AuthorDTO updateAuthor(AuthorDTO authorDto, Long authorId) {
+    public AuthorDAO updateAuthor(AuthorDAO authorDao, Long authorId) {
         Author foundedAuthor = this.authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
-        foundedAuthor.setName(authorDto.getName());
-        foundedAuthor.setEmail(authorDto.getEmail());
-        foundedAuthor.setBiography(authorDto.getBiography());
+        foundedAuthor.setName(authorDao.getName());
+        foundedAuthor.setEmail(authorDao.getEmail());
+        foundedAuthor.setBiography(authorDao.getBiography());
 
         Author updatedAuthor = this.authorRepo.save(foundedAuthor);
         return this.authorToDto(updatedAuthor);
     }
 
     @Override
-    public AuthorDTO getAuthorById(Long authorId) {
+    public AuthorDAO getAuthorById(Long authorId) {
         Author foundedAuthor = this.authorRepo.findById(authorId).orElseThrow(() -> new ResourceNotFoundException("author", "id", authorId));
         return this.authorToDto(foundedAuthor);
     }
 
     @Override
-    public List<AuthorDTO> getAllAuthors(Integer pageNumber, Integer pageSize, String sortBy, String sortType) {
+    public List<AuthorDAO> getAllAuthors(Integer pageNumber, Integer pageSize, String sortBy, String sortType) {
         Sort sort = null;
         if(sortType.equalsIgnoreCase("asc")){
             sort = Sort.by(sortBy).ascending();
@@ -60,8 +62,8 @@ public class AuthorServiceImpl implements AuthorService {
         Page<Author> pagedAuthor = this.authorRepo.findAll(pageable);
 
         List<Author> authors = pagedAuthor.getContent();
-        List<AuthorDTO> authorDTOS = authors.stream().map(author -> this.authorToDto(author)).collect(Collectors.toList());
-        return authorDTOS;
+        List<AuthorDAO> authorDAOS = authors.stream().map(author -> this.authorToDto(author)).collect(Collectors.toList());
+        return authorDAOS;
     }
 
     @Override
@@ -70,13 +72,13 @@ public class AuthorServiceImpl implements AuthorService {
         this.authorRepo.delete(foundedAuthor);
     }
 
-    public Author dtoToAuthor(AuthorDTO authorDTO) {
-        Author author = this.modelMapper.map(authorDTO, Author.class);
+    public Author dtoToAuthor(AuthorDAO authorDAO) {
+        Author author = this.modelMapper.map(authorDAO, Author.class);
         return author;
     }
 
-    public AuthorDTO authorToDto(Author author) {
-        AuthorDTO authorDTO = this.modelMapper.map(author, AuthorDTO.class);
-        return authorDTO;
+    public AuthorDAO authorToDto(Author author) {
+        AuthorDAO authorDAO = this.modelMapper.map(author, AuthorDAO.class);
+        return authorDAO;
     }
 }

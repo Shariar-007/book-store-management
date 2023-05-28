@@ -1,5 +1,6 @@
 package com.book.store.management.entity;
 
+import com.book.store.management.payloads.AuthorDAO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,5 +30,6 @@ public class Book {
     private Date yearOfPublication;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<Author> author = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
+
 }
