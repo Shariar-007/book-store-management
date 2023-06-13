@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private AuthorRepo authorRepo;
 
-    @Autowired
+    @Autowired(required = false)
     private ModelMapper modelMapper;
 
     @Override

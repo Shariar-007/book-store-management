@@ -22,7 +22,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepo authorRepo;
 
-    @Autowired
+    @Autowired(required = false)
     private ModelMapper modelMapper;
 
     @Override

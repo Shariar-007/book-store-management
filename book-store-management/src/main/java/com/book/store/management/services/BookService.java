@@ -1,7 +1,5 @@
 package com.book.store.management.services;
-import com.book.store.management.entity.Book;
 import com.book.store.management.payloads.BookDAO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

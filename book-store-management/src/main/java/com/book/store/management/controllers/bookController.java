@@ -3,7 +3,6 @@ package com.book.store.management.controllers;
 import com.book.store.management.config.AppConstants;
 import com.book.store.management.payloads.ApiResponse;
 import com.book.store.management.payloads.BookDAO;
-import com.book.store.management.services.AuthorService;
 import com.book.store.management.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +18,6 @@ public class bookController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private AuthorService authorService;
 
     @GetMapping
     public ResponseEntity<List<BookDAO>> getAllBooks(
